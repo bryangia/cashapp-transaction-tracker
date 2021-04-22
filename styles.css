@@ -1,0 +1,26 @@
+/* Color palette
+#8ee4af
+#5cdb95
+#05386b
+#379683
+#EDF5E1
+*/
+
+.header {
+    padding: 50px;
+    text-align: center;
+    background: #5cdb95;
+    color: #05386b;
+    font-size: 25px;
+}
+
+.body {
+    background: #8ee4af;
+}
+
+.upload-file {
+    text-align: center;
+    font-size: 25px;
+    color: #379683;
+}
+
