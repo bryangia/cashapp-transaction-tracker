@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link href="/styles.css" rel="stylesheet">
 	<title>Cashapp Transaction Tracker</title>
 </head>
@@ -9,6 +8,7 @@
     <div class = "header">
         <h1>Cashapp Transaction Tracker</h1>
     </div>
+    <?php if(!isset($_POST['submit_file'])) { ?>
     <div style= "text-align: center">
         <form action="" method="post" enctype="multipart/form-data">
         <p class = "upload-file"> Please upload your cash_app_report.csv file! </p><br>
@@ -20,10 +20,8 @@
             <button class = "submit-button"> Submit File </button>
         </form>
     </div>
+    <?php } ?>
     <script src="/main.js"></script>
 </body>
-<?php
-
-?>
 
 </html>

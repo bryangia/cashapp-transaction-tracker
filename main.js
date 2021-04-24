@@ -50,7 +50,7 @@ function updateThumbnail(dropZoneElement, file) {
     }
 
     thumbnailElement.dataset.label = file.name;
-
+    console.log(file);
     /*if (file.type.startsWith("image/")) {
         const reader = new FileReader();
 
