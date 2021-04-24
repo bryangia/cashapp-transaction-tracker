@@ -10,7 +10,7 @@
     </div>
     <div style= "text-align: center">
         <form action="" method="post" enctype="multipart/form-data">
-        <p class = "upload-file"> Please upload your Cashapp CSV file! </p><br>
+        <p class = "upload-file"> Please upload your cash_app_report.csv file! </p><br>
             <div class="drop-zone">
                 <span class="drop-zone__prompt">Drop Cashapp csv file here or click to upload</span>
                 <input type="file" name="csv_file" id="csv_file" class="drop-zone__input">
