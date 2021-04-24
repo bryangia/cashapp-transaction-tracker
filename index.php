@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link href="/styles.css" rel="stylesheet">
 	<title>Cashapp Transaction Tracker</title>
 </head>
