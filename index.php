@@ -22,14 +22,23 @@
     </div>
     <?php } ?>
     <script src="/main.js"></script>
-</body>
+
     <?php 
         if(isset($_POST['submit_file'])) {
             if(isset($_FILES['csv_file'])) {
                 echo "File name: ";
                 echo $_FILES['csv_file']['name'];
-            }
+            } 
+
+            echo "<form action='' method='post'>";
+            echo "<input type = 'submit' name = submit_new_file value = 'Submit New File'>";
+            echo "</form>";
+        }
+
+        if(isset($_POST['submit_new_file'])) {
+            header("Location:/index.php");
         }
     ?>
+</body>
 
 </html>
