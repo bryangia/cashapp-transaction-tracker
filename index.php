@@ -25,9 +25,12 @@
 
     <?php 
         if(isset($_POST['submit_file'])) {
-            if(isset($_FILES['csv_file'])) {
+            if($_FILES['csv_file']['name'] != "") {
                 echo "File name: ";
                 echo $_FILES['csv_file']['name'];
+            }
+            else {
+                echo "Please upload a file!";
             } 
 
             echo "<form action='' method='post'>";
