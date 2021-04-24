@@ -23,5 +23,13 @@
     <?php } ?>
     <script src="/main.js"></script>
 </body>
+    <?php 
+        if(isset($_POST['submit_file'])) {
+            if(isset($_FILES['csv_file'])) {
+                echo "File name: ";
+                echo $_FILES['csv_file']['name'];
+            }
+        }
+    ?>
 
 </html>
