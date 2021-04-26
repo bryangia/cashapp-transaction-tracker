@@ -34,11 +34,7 @@ document.querySelectorAll(".drop-zone__input").forEach(inputElement => {
         dropZoneElement.classList.remove("drop-zone--over");
     });
 });
-/**
- *
- * @param {HTMLElement} dropZoneElement
- * @param {File} file
- */
+
 function updateThumbnail(dropZoneElement, file) {
     let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
     if(dropZoneElement.querySelector(".drop-zone__prompt")) {
@@ -52,7 +48,7 @@ function updateThumbnail(dropZoneElement, file) {
     }
 
     thumbnailElement.dataset.label = file.name;
-    //console.log(file);
+    console.log(file);
     /*if (file.type.startsWith("image/")) {
         const reader = new FileReader();
 

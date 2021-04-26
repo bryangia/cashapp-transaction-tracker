@@ -26,8 +26,9 @@
 
     <?php 
         if(isset($_POST['submit_file'])) {
-            if($_FILES['csv_file']) {
-                echo "FUNCTIONALITY UNDER CONSTRUCTION <br>";
+            
+            if($_FILES['csv_file']['name'] != "") {
+                echo "FUNCTIONALITY UNDER CONSTRUCTION";
                 echo "File name: ";
                 echo $_FILES['csv_file']['name'];
             }
