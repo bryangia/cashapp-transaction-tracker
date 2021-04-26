@@ -27,13 +27,13 @@
     <?php 
         if(isset($_POST['submit_file'])) {
             
-            if($_FILES['csv_file']['name'] != "") {
+            if($_FILES['csv_file']['name'] != "" && str_ends_with($_FILES['csv_file']['name'], '.csv')) {
                 echo "FUNCTIONALITY UNDER CONSTRUCTION";
                 echo "File name: ";
                 echo $_FILES['csv_file']['name'];
             }
             else {
-                echo "Please upload a file!";
+                echo "Please upload a .csv file!";
             } 
 
             echo "<form action='' method='post'>";
