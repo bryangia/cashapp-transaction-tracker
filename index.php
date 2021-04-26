@@ -2,6 +2,7 @@
 <html>
 <head>
     <link href="/styles.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 	<title>Cashapp Transaction Tracker</title>
 </head>
 <body class = "body">
@@ -25,8 +26,8 @@
 
     <?php 
         if(isset($_POST['submit_file'])) {
-            echo "FUNCTIONALITY UNDER CONSTRUCTION";
-            if($_FILES['csv_file']['name'] != "") {
+            if($_FILES['csv_file']) {
+                echo "FUNCTIONALITY UNDER CONSTRUCTION <br>";
                 echo "File name: ";
                 echo $_FILES['csv_file']['name'];
             }

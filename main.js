@@ -1,3 +1,4 @@
+//Reference code: https://codepen.io/dcode-software/pen/xxwpLQo?editors=1010
 document.querySelectorAll(".drop-zone__input").forEach(inputElement => {
     const dropZoneElement = inputElement.closest(".drop-zone");
 
@@ -26,17 +27,18 @@ document.querySelectorAll(".drop-zone__input").forEach(inputElement => {
         e.preventDefault();
 
         if (e.dataTransfer.files.length) {
-            inputElement.files = e.dataTransfer.Files;
+            inputElement.files = e.dataTransfer.files;
             updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
         }
 
         dropZoneElement.classList.remove("drop-zone--over");
     });
 });
-/*
-* @param {HTMLElement} dropZoneElement
-* @param {File} file
-*/
+/**
+ *
+ * @param {HTMLElement} dropZoneElement
+ * @param {File} file
+ */
 function updateThumbnail(dropZoneElement, file) {
     let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
     if(dropZoneElement.querySelector(".drop-zone__prompt")) {
@@ -50,7 +52,7 @@ function updateThumbnail(dropZoneElement, file) {
     }
 
     thumbnailElement.dataset.label = file.name;
-    console.log(file);
+    //console.log(file);
     /*if (file.type.startsWith("image/")) {
         const reader = new FileReader();
 
@@ -58,14 +60,8 @@ function updateThumbnail(dropZoneElement, file) {
         reader.onload = () => {
             thumbnailElement.style.backgroundImage = `url('${ reader.result }')`;
         }
-    } */
-    if (file.name.endsWith(".csv")) {
-        console.log("else entered");
-        var img = new Image();
-        img.src = "https://cdn.iconscout.com/icon/premium/png-512-thumb/csv-file-3-502465.png";
-        thumbnailElement.style.Image = img;
-    }
+    } 
     else {
         thumbnailElement.style.backgroundImage = null;
-    }
+    } */
 }
