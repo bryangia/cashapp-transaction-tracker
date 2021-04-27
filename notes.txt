@@ -1,0 +1,8 @@
+Timeframe only
+timeframe select options, quick past week select
+
+2d array is going to need the date with money in, money out
+function to initialize this using date given by user
+
+test each row for if it is an actual transaction
+Then take date value (beginning) and then append values needed to 2d matrix

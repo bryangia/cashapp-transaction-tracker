@@ -55,7 +55,7 @@
     height: 100%;
     border-radius: 10px;
     overflow: hidden;
-    background-image: url('/csv-file-icon.png');
+    background-image: url('/images/csv-file-icon.png');
     background-size: cover;
     position: relative;
 }
