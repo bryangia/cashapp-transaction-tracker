@@ -31,8 +31,8 @@
         <p class = "upload-file"> Please upload your cash_app_report.csv file! </p><br>
         <label for="view_method"> Report Method: </label>
         <select id = "view_method" name = "view_method" onchange='formSelect(this.value)'> 
-                <option value="last_week" selected> Last 7 Days </option>
-                <option value="time_frame"> Specific Timeframe</option>
+                <option value="week_dates" selected> Last 7 Days </option>
+                <option value="date_input"> Specific Timeframe</option>
         </select> <br> <br>
         
         <form action="" method="post" enctype="multipart/form-data">
@@ -46,8 +46,8 @@
                 <input type="hidden" id = "last_week_end" name="end_date" value="<?php echo $endDate;?>">
             </div>
             <div action="" method="post" id="date_input" style=display:none>
-                Start Date: <input type='date' id='date_input_start' name='start_date'/>
-                End Date: <input type='date' id='date_input_end' name= 'end_date'/>
+                Start Date: <input disabled type='date' id='date_input_start' name='start_date'/>
+                End Date: <input disabled type='date' id='date_input_end' name= 'end_date'/>
             </div>
             <br>
 
@@ -94,18 +94,28 @@
         if(isset($_POST['submit_new_file'])) {
             header("Location:/src/index.php");
         }
-        #document.getElementById("myText").disabled = true;
+        
     ?>
 </body>
     <script>
     function formSelect(_option) {
-        if (_option == 'time_frame') {
+        if (_option == 'date_input') {
             document.getElementById('date_input').style.display = "block";
+            document.getElementById("date_input_start").disabled = false;
+            document.getElementById("date_input_end").disabled = false;
+
             document.getElementById('week_dates').style.display = "none";
+            document.getElementById("last_week_start").disabled = true;
+            document.getElementById("last_week_end").disabled = true;
         }
-        else if(_option == 'last_week'){
+        else if(_option == 'week_dates'){
             document.getElementById('week_dates').style.display = "block";
+            document.getElementById("date_input_start").disabled = false;
+            document.getElementById("date_input_end").disabled = false;
+
             document.getElementById('date_input').style.display = "none";
+            document.getElementById("last_week_start").disabled = true;
+            document.getElementById("last_week_end").disabled = true;
         }
     }
     </script>
