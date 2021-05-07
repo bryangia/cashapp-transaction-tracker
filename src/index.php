@@ -2,6 +2,7 @@
     function createDateMatrix($startDate, $endDate) {
         $begin = new DateTime($startDate);
         $end = new DateTime($endDate);
+        $end = $end->setTime(0,0,1);
         $interval = DateInterval::createFromDateString('1 day');
         $period = new DatePeriod($begin, $interval, $end);
 
@@ -39,7 +40,7 @@
             <div action="" method="post" id = "week_dates">
                 <?php
                 $endDate = date("Y-m-d");
-                $startDate = date("Y-m-d", strtotime("-7 days"));
+                $startDate = date("Y-m-d", strtotime("-6 days"));
                 ?>
                 Start Date: <?php echo $startDate . " "; ?> End Date: <?php echo $endDate;?>
                 <input type="hidden" id = "last_week_start" name="start_date" value="<?php echo $startDate;?>">
@@ -64,7 +65,9 @@
 
     <?php 
         if(isset($_POST['submit_file'])) {
-            
+            echo "<form action='' method='post'>";
+            echo "<input type = 'submit' name = submit_new_file value = 'Submit New File'>";
+            echo "</form>";
             if($_FILES['csv_file']['name'] != "" && str_ends_with($_FILES['csv_file']['name'], '.csv')) {
                 echo "FUNCTIONALITY UNDER CONSTRUCTION <br>";
                 echo "File name: ";
@@ -72,23 +75,31 @@
                 echo " " . $_FILES['csv_file']['tmp_name'] . "<br>";
 
                 echo "Start Date: " . $_POST['start_date'] . "<br> End Date: " . $_POST['end_date'] . "<br>";
-                #$dateMatrix = createDateMatrix();
-                echo $_SESSION['start_date'] . "<br>";
-                $fileTmpPath = $_FILES['csv_file']['tmp_name'];
-                $fileName = $_FILES['csv_file']['name'];
+                $dateMatrix = createDateMatrix($_POST['start_date'], $_POST['end_date']);
                 $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
+    
                 while($transaction = fgetcsv($file)) {
-                    echo $transaction[1] . "<br>";
+                    if($transaction[0] != "Transaction ID" && $transaction[2] != "Cash out"){ #Omits first row from parse and ensures it is a transaction only, not a "cash out"
+                        $dateSubString = substr($transaction[1], 0, 10);
+                        if(array_key_exists($dateSubString, $dateMatrix)) {
+                            $moneyAmount = floatval(substr($transaction[6], 1));
+                            if($moneyAmount < 0) {
+                                $dateMatrix[$dateSubString]["money_out"] += $moneyAmount; 
+                            }
+                            else {
+                                $dateMatrix[$dateSubString]["money_in"] += $moneyAmount; 
+                            }
+                        }
+                        #echo $dateSubString . " " . $transaction[6] . "<br>";
+                    }
+                    
                 }
-
+                var_dump($dateMatrix);
             }
             else {
                 echo "Please upload a .csv file! <br>";
             } 
 
-            echo "<form action='' method='post'>";
-            echo "<input type = 'submit' name = submit_new_file value = 'Submit New File'>";
-            echo "</form>";
         }
 
         if(isset($_POST['submit_new_file'])) {
