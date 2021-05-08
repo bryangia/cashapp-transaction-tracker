@@ -82,7 +82,7 @@
                     if($transaction[0] != "Transaction ID" && $transaction[2] != "Cash out"){ #Omits first row from parse and ensures it is a transaction only, not a "cash out"
                         $dateSubString = substr($transaction[1], 0, 10);
                         if(array_key_exists($dateSubString, $dateMatrix)) {
-                            $moneyAmount = floatval(substr($transaction[6], 1));
+                            $moneyAmount = floatval(str_replace('$', '', $transaction[6]));
                             if($moneyAmount < 0) {
                                 $dateMatrix[$dateSubString]["money_out"] += $moneyAmount; 
                             }
@@ -94,7 +94,18 @@
                     }
                     
                 }
-                var_dump($dateMatrix);
+                
+                echo "<table>";
+                echo "<th>Date</th><th>Money In</th><th>Money Out</th><th>Net</th>";
+                foreach($dateMatrix as $date => $values) {
+                    echo "<tr> <td> $date </td>
+                          <td>" . $values["money_in"] . "</td>
+                          <td>" . $values["money_out"] . "</td>
+                          <td>" . $values["money_in"] + $values["money_out"] . "</td>
+                          </tr>";
+                }
+                echo "</table>";
+                
             }
             else {
                 echo "Please upload a .csv file! <br>";
