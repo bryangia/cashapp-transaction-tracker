@@ -62,19 +62,13 @@
     </div>
     <?php } ?>
     <script src="/src/main.js"></script>
-
     <?php 
         if(isset($_POST['submit_file'])) {
             echo "<form action='' method='post'>";
             echo "<input type = 'submit' name = submit_new_file class = 'submit-button' value = 'Submit New File'>";
             echo "</form>";
             if($_FILES['csv_file']['name'] != "" && str_ends_with($_FILES['csv_file']['name'], '.csv')) {
-                echo "FUNCTIONALITY UNDER CONSTRUCTION <br>";
-                echo "File name: ";
-                echo $_FILES['csv_file']['name'];
-                echo " " . $_FILES['csv_file']['tmp_name'] . "<br>";
-
-                echo "Start Date: " . $_POST['start_date'] . "<br> End Date: " . $_POST['end_date'] . "<br>";
+                echo "<h1>Start Date: " . $_POST['start_date'] . "<br> End Date: " . $_POST['end_date'] . "</h1><br>";
                 $dateMatrix = createDateMatrix($_POST['start_date'], $_POST['end_date']);
                 $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
                 
@@ -117,6 +111,7 @@
         }
         
     ?>
+
 </body>
     <script>
     function formSelect(_option) {
