@@ -87,3 +87,24 @@
     color: white;
   }
 
+#report table.center {
+    margin-left: auto;
+    margin-right: auto;
+} 
+
+#report table, #report th, #report td {
+    border: 1px solid black;
+    padding: 4px;
+}
+
+#report td {
+    text-align: right;
+}
+
+#report th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #05386b;
+    color: white;
+}

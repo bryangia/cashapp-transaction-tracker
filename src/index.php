@@ -66,7 +66,7 @@
     <?php 
         if(isset($_POST['submit_file'])) {
             echo "<form action='' method='post'>";
-            echo "<input type = 'submit' name = submit_new_file value = 'Submit New File'>";
+            echo "<input type = 'submit' name = submit_new_file class = 'submit-button' value = 'Submit New File'>";
             echo "</form>";
             if($_FILES['csv_file']['name'] != "" && str_ends_with($_FILES['csv_file']['name'], '.csv')) {
                 echo "FUNCTIONALITY UNDER CONSTRUCTION <br>";
@@ -77,7 +77,7 @@
                 echo "Start Date: " . $_POST['start_date'] . "<br> End Date: " . $_POST['end_date'] . "<br>";
                 $dateMatrix = createDateMatrix($_POST['start_date'], $_POST['end_date']);
                 $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
-    
+                
                 while($transaction = fgetcsv($file)) {
                     if($transaction[0] != "Transaction ID" && $transaction[2] != "Cash out"){ #Omits first row from parse and ensures it is a transaction only, not a "cash out"
                         $dateSubString = substr($transaction[1], 0, 10);
@@ -90,18 +90,17 @@
                                 $dateMatrix[$dateSubString]["money_in"] += $moneyAmount; 
                             }
                         }
-                        #echo $dateSubString . " " . $transaction[6] . "<br>";
                     }
                     
                 }
                 
-                echo "<table>";
+                echo "<table id='report' class='center'>";
                 echo "<th>Date</th><th>Money In</th><th>Money Out</th><th>Net</th>";
                 foreach($dateMatrix as $date => $values) {
                     echo "<tr> <td> $date </td>
-                          <td>" . $values["money_in"] . "</td>
-                          <td>" . $values["money_out"] . "</td>
-                          <td>" . $values["money_in"] + $values["money_out"] . "</td>
+                          <td>$" . number_format($values["money_in"], 2, '.') . "</td>
+                          <td>$" . number_format($values["money_out"], 2, '.') . "</td>
+                          <td>$" . number_format($values["money_in"] + $values["money_out"], 2, '.') . "</td>
                           </tr>";
                 }
                 echo "</table>";
