@@ -108,3 +108,11 @@
     background-color: #05386b;
     color: white;
 }
+
+.positive {
+    background-color: #5cdb95;
+}
+
+.negative {
+    background-color: #e47878;
+}

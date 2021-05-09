@@ -14,7 +14,6 @@
 
         return $dateMatrix;
     }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,6 +25,7 @@
 <body class = "body">
     <div class = "header">
         <h1>Cashapp Transaction Tracker</h1>
+        <p style="font-size: 18px;"> Put in one or more cash_app_report.csv files for a compact report of money sent and received by day! </p>
     </div>
     <?php if(!isset($_POST['submit_file'])) { ?>
     <div style= "text-align: center">
@@ -64,7 +64,7 @@
     <script src="/src/main.js"></script>
     <?php 
         if(isset($_POST['submit_file'])) {
-            echo "<div style= 'text-align: center'><form action='' method='post'>";
+            echo "<br> <div style= 'text-align: center'><form action='' method='post'>";
             echo "<input type = 'submit' name = submit_new_file class = 'submit-button' align='center' value = 'Submit New File'>";
             echo "</form> </div>";
             $dateMatrix = createDateMatrix($_POST['start_date'], $_POST['end_date']);
@@ -102,11 +102,31 @@
             echo "<table id='report' class='center'>";
                 echo "<th>Date</th><th>Money In</th><th>Money Out</th><th>Net</th>";
                 foreach($dateMatrix as $date => $values) {
-                    echo "<tr> <td> $date </td>
-                          <td>$" . number_format($values["money_in"], 2, '.') . "</td>
-                          <td>$" . number_format($values["money_out"], 2, '.') . "</td>
-                          <td>$" . number_format($values["money_in"] + $values["money_out"], 2, '.') . "</td>
-                          </tr>";
+                    echo "<tr> <td> $date </td>";
+                    if ($values["money_in"] == 0) { #Money in column
+                        echo "<td>";
+                    }
+                    else {
+                        echo "<td class = 'positive'>";
+                    }
+                    echo "$" . number_format($values["money_in"], 2, '.') . "</td>";
+                    
+                    if ($values["money_out"] == 0) { #Money out column
+                        echo "<td>";
+                    }
+                    else {
+                        echo "<td class = 'negative'>";
+                    }
+                    echo "$" . number_format($values["money_out"], 2, '.') . "</td>";
+
+                    if($values["money_in"] + $values["money_out"] < 0) { #Net column
+                        echo "<td class = 'negative'>";
+                    }
+                    else {
+                        echo "<td class = 'positive'>";
+                    }
+                    echo "$" . number_format($values["money_in"] + $values["money_out"], 2, '.') . "</td>
+                    </tr>";
                 }
                 echo "</table>";
         }
