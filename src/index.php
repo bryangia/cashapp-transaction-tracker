@@ -54,7 +54,7 @@
 
             <div class="drop-zone">
                 <span class="drop-zone__prompt">Drop Cashapp csv file here or click to upload</span>
-                <input type="file" name="csv_file" id="csv_file" class="drop-zone__input">
+                <input type="file" name="csv_file[]" id="csv_file" class="drop-zone__input" multiple>
             </div> <br>
             <input type = "hidden" name = "submit_file" id = "submit_file" value = "Submit File">
             <button type = "submit/button" class = "submit-button"> Submit File </button>
@@ -64,14 +64,25 @@
     <script src="/src/main.js"></script>
     <?php 
         if(isset($_POST['submit_file'])) {
-            echo "<form action='' method='post'>";
-            echo "<input type = 'submit' name = submit_new_file class = 'submit-button' value = 'Submit New File'>";
-            echo "</form>";
-            if($_FILES['csv_file']['name'] != "" && str_ends_with($_FILES['csv_file']['name'], '.csv')) {
-                echo "<h1>Start Date: " . $_POST['start_date'] . "<br> End Date: " . $_POST['end_date'] . "</h1><br>";
-                $dateMatrix = createDateMatrix($_POST['start_date'], $_POST['end_date']);
-                $file = fopen($_FILES['csv_file']['tmp_name'], 'r');
-                
+            echo "<div style= 'text-align: center'><form action='' method='post'>";
+            echo "<input type = 'submit' name = submit_new_file class = 'submit-button' align='center' value = 'Submit New File'>";
+            echo "</form> </div>";
+            $dateMatrix = createDateMatrix($_POST['start_date'], $_POST['end_date']);
+            $fileCount = count($_FILES['csv_file']['name']);
+            if ($fileCount == 0) {
+                echo "Please upload a file! <br>";
+                return;
+            }
+            for($i=0; $i<$fileCount; $i++) {
+                if(!str_ends_with($_FILES['csv_file']['name'][0], '.csv')) {
+                    echo "<h1 align='center'>Please upload a .csv file!</h1>";
+                    return;
+                }
+            }
+
+            echo "<h1 align='center'>Start Date: " . $_POST['start_date'] . "<br> End Date: " . $_POST['end_date'] . "</h1><br>";
+            for($i=0; $i<$fileCount; $i++) {
+                $file = fopen($_FILES['csv_file']['tmp_name'][$i], 'r');
                 while($transaction = fgetcsv($file)) {
                     if($transaction[0] != "Transaction ID" && $transaction[2] != "Cash out"){ #Omits first row from parse and ensures it is a transaction only, not a "cash out"
                         $dateSubString = substr($transaction[1], 0, 10);
@@ -85,10 +96,10 @@
                             }
                         }
                     }
-                    
                 }
-                
-                echo "<table id='report' class='center'>";
+            }
+
+            echo "<table id='report' class='center'>";
                 echo "<th>Date</th><th>Money In</th><th>Money Out</th><th>Net</th>";
                 foreach($dateMatrix as $date => $values) {
                     echo "<tr> <td> $date </td>
@@ -98,12 +109,6 @@
                           </tr>";
                 }
                 echo "</table>";
-                
-            }
-            else {
-                echo "Please upload a .csv file! <br>";
-            } 
-
         }
 
         if(isset($_POST['submit_new_file'])) {
