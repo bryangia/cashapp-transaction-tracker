@@ -56,6 +56,10 @@
                 <span class="drop-zone__prompt">Drop Cashapp csv file here or click to upload</span>
                 <input type="file" name="csv_file[]" id="csv_file" class="drop-zone__input" multiple>
             </div> <br>
+
+            Eastern to Central Time (Minus One Hour): 
+            <input type="checkbox" name="ESTtoCST" value="Yes" checked/> <br> <br>
+
             <input type = "hidden" name = "submit_file" id = "submit_file" value = "Submit File">
             <button type = "submit/button" class = "submit-button"> Submit File </button>
         </form>
@@ -85,6 +89,10 @@
                 $file = fopen($_FILES['csv_file']['tmp_name'][$i], 'r');
                 while($transaction = fgetcsv($file)) {
                     if($transaction[0] != "Transaction ID" && $transaction[2] != "Cash out"){ #Omits first row from parse and ensures it is a transaction only, not a "cash out"
+                        if(isset($_POST["ESTtoCST"])){
+                            $dateSubString = substr($transaction[1], 0, 19);
+                            
+                        }
                         $dateSubString = substr($transaction[1], 0, 10);
                         if(array_key_exists($dateSubString, $dateMatrix)) {
                             $moneyAmount = floatval(str_replace('$', '', $transaction[6]));
