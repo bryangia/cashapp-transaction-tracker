@@ -92,7 +92,6 @@
                         if(isset($_POST["ESTtoCST"])){
                             $longDate = substr($transaction[1], 0, 19);
                             $tempDate = new DateTime($longDate);
-                            echo $transaction[0] . " | " . $longDate . " | " . $transaction[6] . "<br>";
                             $subDate = new DateInterval('PT1H');
                             $tempDate->sub($subDate);
                             $dateSubString = $tempDate -> format('Y-m-d');
