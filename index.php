@@ -145,7 +145,11 @@
         }
 
         if(isset($_POST['submit_new_file'])) {
-            header("Location:index.php");
+            ?>
+            <script type="text/javascript">
+            window.location.href = 'https://cashapp-transaction-tracker.herokuapp.com/';
+            </script>
+            <?php
         }
         
     ?>
