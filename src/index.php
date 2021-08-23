@@ -146,7 +146,7 @@
         }
 
         if(isset($_POST['submit_new_file'])) {
-            header('index.php');
+            header("Location: index.php");
         }
         
     ?>
