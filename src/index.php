@@ -88,7 +88,8 @@
             for($i=0; $i<$fileCount; $i++) {
                 $file = fopen($_FILES['csv_file']['tmp_name'][$i], 'r');
                 while($transaction = fgetcsv($file)) {
-                    if($transaction[0] != "Transaction ID" && $transaction[2] != "Cash out" && !(floatval(str_replace('$', '', $transaction[6])) > 0 && str_contains($transaction[13], "MasterCard"))){ #Omits first row from parse and ensures it is a transaction only, not a "cash out"
+                    if($transaction[0] != "Transaction ID" && $transaction[2] != "Cash out" && #Omits first row from parse and ensures it is a transaction only, not a "cash out"
+                    !(floatval(str_replace('$', '', $transaction[6])) > 0 && str_contains($transaction[13], "MasterCard"))){ #omits transactions that were cancelled from card payment
                         if(isset($_POST["ESTtoCST"])){
                             $longDate = substr($transaction[1], 0, 19);
                             $tempDate = new DateTime($longDate);
